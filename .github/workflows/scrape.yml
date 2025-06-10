@@ -21,7 +21,8 @@ jobs:
       - name: Run scraper
         run: python scrape_instagram.py
       - name: Upload comments.json as artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: comments-json
-          path: comments.json
+  uses: actions/upload-artifact@v4
+  with:
+    name: comments-json
+    path: comments.json
+
