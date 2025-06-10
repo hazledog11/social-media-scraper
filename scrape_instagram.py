@@ -14,7 +14,7 @@ end_date = datetime(2025, 5, 31)
 
 # Step 1: Fetch the Instagram profile page
 print("Fetching Instagram profile...")
-profile_url = f"https://https://www.instagram.com/worldhorseracing/"
+profile_url = f"https:www.instagram.com/worldhorseracing/"
 params = {
     "api_key": API_KEY,
     "url": profile_url,
