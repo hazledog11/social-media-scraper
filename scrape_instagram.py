@@ -63,4 +63,9 @@ with open("comments.json", "w", encoding="utf-8") as f:
     json.dump(all_comments, f, indent=2, ensure_ascii=False)
 
 print(f"Saved {len(all_comments)} comments to comments.json")
+      - name: Upload comments.json as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: comments-json
+          path: comments.json
 
