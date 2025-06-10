@@ -13,20 +13,25 @@ start_date = datetime(2025, 5, 1)
 end_date = datetime(2025, 5, 31)
 
 # Step 1: Fetch the Instagram profile page
+print("Fetching Instagram profile...")
 profile_url = f"https://www.instagram.com/{USERNAME}/"
 params = {
-    "api_key": API_KEY,
-    "url": profile_url,
-    "render": "true"
+    "api_key": API_KEY,
+    "url": profile_url,
+    "render": "true"
 }
 
 try:
-    response = requests.get(BASE_URL, params=params)
-    response.raise_for_status()
-    profile_data = response.json()
+    response = requests.get(BASE_URL, params=params)
+    response.raise_for_status()
+    profile_data = response.json()
 except Exception as e:
-    print(f"Failed to fetch profile: {e}")
-    profile_data = {}
+    print(f"Failed to fetch profile: {e}")
+    profile_data = {}
+
+# Save raw profile response for debugging
+with open("profile_raw.json", "w", encoding="utf-8") as f:
+    json.dump(profile_data, f, indent=2, ensure_ascii=False)
 
 # Step 2: Extract post URLs
 post_urls = []
@@ -39,7 +44,6 @@ for post in posts:
         post_url = post.get("url") or post.get("shortcode_url") or post.get("link")
         timestamp = post.get("timestamp") or post.get("taken_at_timestamp")
 
-        # Convert timestamp to datetime
         if isinstance(timestamp, (int, float)):
             post_date = datetime.fromtimestamp(timestamp)
         elif isinstance(timestamp, str):
@@ -73,7 +77,6 @@ for index, url in enumerate(post_urls):
         comment_response.raise_for_status()
         comment_data = comment_response.json()
 
-        # Save raw comment data for each post
         with open(f"comments_raw_{index}.json", "w", encoding="utf-8") as f:
             json.dump(comment_data, f, indent=2, ensure_ascii=False)
 
